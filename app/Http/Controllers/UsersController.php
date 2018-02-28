@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 // use App\Http\Request;
 use App\Models\User;
 
+use Auth;
+
 class UsersController extends Controller
 {
     public function create()
@@ -32,7 +34,7 @@ class UsersController extends Controller
             'password' =>bcrypt($request->password),
         ]);
 
-
+        Auth::login($user);
         session()->flash('success' , '歡迎你！');
         return redirect()->route('users.show', [$user]);
     }
